@@ -18,20 +18,28 @@ class Test0512():
   def teardown_method(self, method):
     self.driver.quit()
   
-  def test_0512(self):
+  def test_0512_test1(self):
     self.driver.get("https://armcrm-dev.test.gosuslugi.ru/login")
-    self.driver.set_window_size(518, 98)
-    self.driver.find_element(By.ID, "username").send_keys("api")
-    self.driver.find_element(By.ID, "password").send_keys("usetech@")
-    self.driver.find_element(By.CSS_SELECTOR, ".styles__button__2b5Jq").click()
+    self.driver.set_window_size(1000, 1000)
+    self.login("api", "usetech@")
+    self.create_audience("123546576", "5кне56н756")
+
+  def test_0512_test2(self):
+    self.driver.get("https://armcrm-dev.test.gosuslugi.ru/login")
+    self.driver.set_window_size(1000, 1000)
+    self.login("api", "usetech@")
+    self.create_audience("", "")
+
+  def create_audience(self, name_a, description_a):
+    # create audience
     element = self.driver.find_element(By.CSS_SELECTOR, ".MuiButton-contained")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).perform()
     self.driver.find_element(By.CSS_SELECTOR, ".MuiButton-contained").click()
     self.driver.find_element(By.ID, "name").click()
-    self.driver.find_element(By.ID, "name").send_keys("123546576")
+    self.driver.find_element(By.ID, "name").send_keys(name_a)
     self.driver.find_element(By.ID, "description").click()
-    self.driver.find_element(By.ID, "description").send_keys("5кне56н7567")
+    self.driver.find_element(By.ID, "description").send_keys(description_a)
     self.driver.find_element(By.CSS_SELECTOR, ".css-dmxury-placeholder").click()
     self.driver.find_element(By.ID, "react-select-4-option-0").click()
     self.driver.find_element(By.CSS_SELECTOR, ".MuiGrid-grid-lg-5").click()
@@ -40,4 +48,14 @@ class Test0512():
     actions.move_to_element(element).perform()
     self.driver.find_element(By.CSS_SELECTOR, ".MuiButton-root:nth-child(3)").click()
     self.driver.execute_script("window.scrollTo(0,0)")
+
+  def login(self, username, password):
+    # login
+    self.driver.find_element(By.ID, "username").click()
+    self.driver.find_element(By.ID, "username").clear()
+    self.driver.find_element(By.ID, "username").send_keys(username)
+    self.driver.find_element(By.ID, "password").click()
+    self.driver.find_element(By.ID, "password").clear()
+    self.driver.find_element(By.ID, "password").send_keys(password)
+    self.driver.find_element(By.CSS_SELECTOR, ".styles__button__2b5Jq").click()
   
