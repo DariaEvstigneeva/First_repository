@@ -12,18 +12,16 @@ class Test0512():
   
   def teardown_method(self, method):
     self.driver.quit()
-  
-  def test_0512_test1(self):
-    self.driver.get("https://armcrm-dev.test.gosuslugi.ru/login")
-    self.driver.set_window_size(1000, 1000)
-    self.login("api", "usetech@")
-    self.create_audience(Audience("123546576", "5кне56н756"))
 
-  def test_0512_test2(self):
-    self.driver.get("https://armcrm-dev.test.gosuslugi.ru/login")
-    self.driver.set_window_size(1000, 1000)
-    self.login("api", "usetech@")
-    self.create_audience("", "")
+  def login(self, username, password):
+    # login
+    self.driver.find_element(By.ID, "username").click()
+    self.driver.find_element(By.ID, "username").clear()
+    self.driver.find_element(By.ID, "username").send_keys(username)
+    self.driver.find_element(By.ID, "password").click()
+    self.driver.find_element(By.ID, "password").clear()
+    self.driver.find_element(By.ID, "password").send_keys(password)
+    self.driver.find_element(By.CSS_SELECTOR, ".styles__button__2b5Jq").click()
 
   def create_audience(self, audience):
     # create audience
@@ -44,13 +42,17 @@ class Test0512():
     self.driver.find_element(By.CSS_SELECTOR, ".MuiButton-root:nth-child(3)").click()
     self.driver.execute_script("window.scrollTo(0,0)")
 
-  def login(self, username, password):
-    # login
-    self.driver.find_element(By.ID, "username").click()
-    self.driver.find_element(By.ID, "username").clear()
-    self.driver.find_element(By.ID, "username").send_keys(username)
-    self.driver.find_element(By.ID, "password").click()
-    self.driver.find_element(By.ID, "password").clear()
-    self.driver.find_element(By.ID, "password").send_keys(password)
-    self.driver.find_element(By.CSS_SELECTOR, ".styles__button__2b5Jq").click()
+    def test_0512_test1(self):
+      self.driver.get("https://armcrm-dev.test.gosuslugi.ru/login")
+      self.driver.set_window_size(1000, 1000)
+      self.login("api", "usetech@")
+      self.create_audience(Audience("123546576", "5кне56н756"))
+
+    def test_0512_test2(self):
+      self.driver.get("https://armcrm-dev.test.gosuslugi.ru/login")
+      self.driver.set_window_size(1000, 1000)
+      self.login("api", "usetech@")
+      self.create_audience("", "")
+
+
   

@@ -1,0 +1,1 @@
+from package_for_learn_function.classy import *
