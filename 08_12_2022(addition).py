@@ -10,6 +10,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+# рабочий тест
 class TestUntitled():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
@@ -21,9 +22,9 @@ class TestUntitled():
   def test_untitled(self):
     self.driver.get("https://armcrm-dev.test.gosuslugi.ru/login")
     self.driver.set_window_size(1920, 1080)
-    self.login()
+    self.login("devstigneeva", "fWd9iGZz")
     time.sleep(2)
-    self.create_audiences()
+    self.create_audiences("0812", "0812")
   # нужна проверка, что выполнен переход на страницу к перечню ца
     time.sleep(2)
     self.open_sidebar()
@@ -45,21 +46,21 @@ class TestUntitled():
   # создание ЦА
   # нужно добавить также добавление тегов
   # создать отдельные методы с деактивацией чекбокса, со сменой режима, добавление правил
-  def create_audiences(self):
+  def create_audiences(self, name_audience, description_audience):
     element = self.driver.find_element(By.CSS_SELECTOR, ".MuiButton-contained")
     self.driver.find_element(By.CSS_SELECTOR, ".MuiButton-contained").click()
     time.sleep(1)
     self.driver.find_element(By.ID, "name").click()
-    self.driver.find_element(By.ID, "name").send_keys("081222")
+    self.driver.find_element(By.ID, "name").send_keys(name_audience)
     time.sleep(1)
     self.driver.find_element(By.ID, "description").click()
-    self.driver.find_element(By.ID, "description").send_keys("0812")
+    self.driver.find_element(By.ID, "description").send_keys(description_audience)
     time.sleep(2)
     self.driver.find_element(By.CSS_SELECTOR, ".MuiButton-root:nth-child(3)").click()
 
   # авторизация
-  def login(self):
-    self.driver.find_element(By.ID, "username").send_keys("api")
-    self.driver.find_element(By.ID, "password").send_keys("usetech@")
+  def login(self, username, password):
+    self.driver.find_element(By.ID, "username").send_keys(username)
+    self.driver.find_element(By.ID, "password").send_keys(password)
     element = self.driver.find_element(By.CSS_SELECTOR, ".styles__button__2b5Jq")
     self.driver.find_element(By.CSS_SELECTOR, ".styles__button__2b5Jq").click()
