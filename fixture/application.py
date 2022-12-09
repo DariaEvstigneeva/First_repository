@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
 from fixture.session import WorkSession
 from fixture.audience import Work_with_audiences
 
@@ -18,7 +17,6 @@ class Application:
     # открытие боковой панели с данными пользователя
     def open_sidebar(self):
         self.driver.execute_script("window.scrollTo(0,0)")
-        element = self.driver.find_element(By.CSS_SELECTOR, ".user-menu-module__user-name-text__2_L8L")
         self.driver.find_element(By.CSS_SELECTOR, ".user-menu-module__user-name-text__2_L8L").click()
 
     # настройки браузера и ссылки
