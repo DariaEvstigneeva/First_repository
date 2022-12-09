@@ -2,7 +2,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-from audience import Audience
+from model.audience import Audience
 
 
 class Test0512():
