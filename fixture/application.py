@@ -1,20 +1,17 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+from fixture.session import WorkSession
 
 class Application:
 
     def __init__(self):
         self.driver = webdriver.Chrome()
         self.vars = {}
+        self.session = WorkSession(self)
 
     def destroy(self):
         self.driver.quit()
-
-    # выход из системы
-    def logout(self):
-        element = self.driver.find_element(By.CSS_SELECTOR, "body")
-        self.driver.find_element(By.CSS_SELECTOR, ".user-menu-module__user-info-role-button__3I6l_").click()
 
     # открытие боковой панели с данными пользователя
     def open_sidebar(self):
@@ -36,13 +33,6 @@ class Application:
         self.driver.find_element(By.ID, "description").send_keys(description_audience)
         time.sleep(2)
         self.driver.find_element(By.CSS_SELECTOR, ".MuiButton-root:nth-child(3)").click()
-
-    # авторизация
-    def login(self, username, password):
-        self.driver.find_element(By.ID, "username").send_keys(username)
-        self.driver.find_element(By.ID, "password").send_keys(password)
-        element = self.driver.find_element(By.CSS_SELECTOR, ".styles__button__2b5Jq")
-        self.driver.find_element(By.CSS_SELECTOR, ".styles__button__2b5Jq").click()
 
     # настройки браузера и ссылки
     def link_acrm(self):

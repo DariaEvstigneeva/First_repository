@@ -14,12 +14,12 @@ def app(request):
 # рабочий тест
 def test_untitled(app):
     app.link_acrm()
-    app.login("devstigneeva", "fWd9iGZz")
+    app.session.login("devstigneeva", "fWd9iGZz")
     time.sleep(2)
     app.create_audiences("091222", "0912")
     # нужна проверка, что выполнен переход на страницу к перечню ца
     time.sleep(2)
     app.open_sidebar()
     time.sleep(2)
-    app.logout()
+    app.session.logout()
     time.sleep(2)
