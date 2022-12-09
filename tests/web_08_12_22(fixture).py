@@ -16,7 +16,7 @@ def test_untitled(app):
     app.link_acrm()
     app.session.login("devstigneeva", "fWd9iGZz")
     time.sleep(2)
-    app.create_audiences("091222", "0912")
+    app.audience.create("091222", "0912")
     # нужна проверка, что выполнен переход на страницу к перечню ца
     time.sleep(2)
     app.open_sidebar()
