@@ -10,7 +10,6 @@ class Work_with_audiences:
     # нужно добавить также добавление тегов
     # создать отдельные методы с деактивацией чекбокса, со сменой режима, добавление правил
     def create(self, name_audience, description_audience):
-        element = self.app.driver.find_element(By.CSS_SELECTOR, ".MuiButton-contained")
         self.app.driver.find_element(By.CSS_SELECTOR, ".MuiButton-contained").click()
         time.sleep(1)
         self.app.driver.find_element(By.ID, "name").click()
@@ -20,3 +19,8 @@ class Work_with_audiences:
         self.app.driver.find_element(By.ID, "description").send_keys(description_audience)
         time.sleep(2)
         self.app.driver.find_element(By.CSS_SELECTOR, ".MuiButton-root:nth-child(3)").click()
+
+    def delete_last_audience(self):
+        self.app.driver.find_element(By.CSS_SELECTOR, ".MuiTableRow-root:nth-child(1) .MuiButtonBase-root:nth-child(3) > svg").click()
+        time.sleep(1)
+        self.app.driver.find_element(By.CSS_SELECTOR, ".MuiButton-containedError").click()
