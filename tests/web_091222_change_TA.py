@@ -6,7 +6,7 @@ def test1_change_last_audience(app):
     app.link_acrm()
     app.session.login("devstigneeva", "fWd9iGZz")
     time.sleep(2)
-    app.audience.change_last_audience("Тест 09_12_22", "Описание")
+    app.audience.change_last_audience("Тест 12_12_22", "Описание")
     time.sleep(2)
     app.open_sidebar()
     time.sleep(1)

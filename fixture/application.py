@@ -22,4 +22,6 @@ class Application:
     # настройки браузера и ссылки
     def link_acrm(self):
         self.driver.get("https://armcrm-dev.test.gosuslugi.ru/login")
+        # Метод driver.get перенаправляет к странице URL в параметре.
+        # WebDriver будет ждать пока страница не загрузится полностью
         self.driver.set_window_size(1920, 1080)

@@ -14,10 +14,15 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 # рабочий тест
 class Test0812():
     def setup_method(self, method):
+        # setUp — это часть инициализации, этот метод будет вызываться перед каждым методом теста,
+        # который вы собираетесь написать внутри класса теста. Здесь создается элемент класса - WebDriver Chrome.
         self.driver = webdriver.Chrome()
         self.vars = {}
 
     def teardown_method(self, method):
+        # Метод tearDown будет вызван после каждого метода теста.
+        # В текущем методе реализовано закрытие окна браузера.
+        # Можно вызывать метод quit вместо close. Метод quit закроет браузер полностью, close закроет одну вкладку.
         self.driver.quit()
 
     def test_untitled(self):
