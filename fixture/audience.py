@@ -46,3 +46,18 @@ class Work_with_audiences:
         self.app.driver.find_element(By.ID, "description").send_keys(description_audience)
         time.sleep(2)
         self.app.driver.find_element(By.CSS_SELECTOR, ".MuiButton-root:nth-child(3)").click()
+
+    # изменение последней ЦА 2
+    def change_last_audience2(self, name_audience, description_audience):
+        self.app.driver.find_element(By.CSS_SELECTOR,".MuiTableRow-root:nth-child(1) .styles__actions-icons__2Yqi9 > .MuiButtonBase-root:nth-child(1) path").click()
+        time.sleep(1)
+        self.type("name", name_audience)
+        self.type("description", description_audience)
+        time.sleep(2)
+        self.app.driver.find_element(By.CSS_SELECTOR, ".MuiButton-root:nth-child(3)").click()
+
+    def type(self, field_id, text):
+        if text is not None:
+            self.app.driver.find_element(By.ID, field_id).send_keys(Keys.CONTROL + "a")
+            self.app.driver.find_element(By.ID, field_id).send_keys(Keys.DELETE)
+            self.app.driver.find_element(By.ID, field_id).send_keys(text)
