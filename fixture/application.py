@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from fixture.session import WorkSession
 from fixture.audience import Work_with_audiences
+from fixture.mailing_list import Work_with_mailing_lists
 
 class Application:
 
@@ -10,6 +11,7 @@ class Application:
         self.vars = {}
         self.session = WorkSession(self)
         self.audience = Work_with_audiences(self)
+        self.mailing_list = Work_with_mailing_lists(self)
 
     def destroy(self):
         self.driver.quit()
@@ -25,3 +27,7 @@ class Application:
         # Метод driver.get перенаправляет к странице URL в параметре.
         # WebDriver будет ждать пока страница не загрузится полностью
         self.driver.set_window_size(1920, 1080)
+
+    # переход в раздел РС
+    def module_mailing_lists(self):
+        self.driver.find_element(By.CSS_SELECTOR, ".styles__link__lDjnp:nth-child(2) .MuiTypography-root").click()
