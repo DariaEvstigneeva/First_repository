@@ -11,7 +11,7 @@ from fixture.application import Application
 fixture = None
 
 
-#фикстура
+# фикстура
 # инициализация фикстуры
 @pytest.fixture
 # Декоратор @pytest.fixture() используется, чтобы сообщить pytest, что функция является фикстурой.
@@ -23,7 +23,7 @@ def app(request): # имя фикстуры
         fixture = Application()
         fixture.session.login("devstigneeva", "fWd9iGZz")
     else:
-        if not fixture.is_valid():
+        if not fixture.is_valid(): # если фикстура невалидна, то происходит переинициализация и логин
             fixture = Application()
             fixture.session.login("devstigneeva", "fWd9iGZz")
     return fixture

@@ -18,3 +18,4 @@ class WorkSession:
         self.app.open_sidebar()
         time.sleep(1)
         self.app.driver.find_element(By.CSS_SELECTOR, ".user-menu-module__user-info-role-button__3I6l_").click()
+

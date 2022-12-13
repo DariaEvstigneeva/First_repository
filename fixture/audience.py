@@ -61,3 +61,8 @@ class Work_with_audiences:
             self.app.driver.find_element(By.ID, field_id).send_keys(Keys.CONTROL + "a")
             self.app.driver.find_element(By.ID, field_id).send_keys(Keys.DELETE)
             self.app.driver.find_element(By.ID, field_id).send_keys(text)
+
+
+    # количество элементов на странице
+    def count(self):
+        return len (self.app.driver.find_element(By.ID, "name"))
