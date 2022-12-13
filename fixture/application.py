@@ -35,6 +35,13 @@ class Application:
         # WebDriver будет ждать пока страница не загрузится полностью
         self.driver.set_window_size(1920, 1080)
 
+
+    # проверка на дефолтную страницу
+    def default_page(self):
+        if not (self.driver.current_url.endswith("/target-audiences?status=ACTIVE&status=DRAFT&ordering=-updated_at")):
+            self.driver.find_element(By.CSS_SELECTOR, ".styles__link__lDjnp:nth-child(1) .MuiTypography-root").click()
+
+
     # переход в раздел РС
     def module_mailing_lists(self):
         self.driver.find_element(By.CSS_SELECTOR, ".styles__link__lDjnp:nth-child(2) .MuiTypography-root").click()
