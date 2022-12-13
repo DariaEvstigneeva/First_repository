@@ -3,12 +3,6 @@ import time
 
 # тест на удаление последней ца
 def test1_delete_last_audience(app):
-    app.link_acrm()
-    app.session.login("devstigneeva", "fWd9iGZz")
-    time.sleep(2)
-    app.audience.delete_last_audience()
-    time.sleep(2)
-    app.open_sidebar()
     time.sleep(1)
-    app.session.logout()
+    app.audience.delete_last_audience()
     time.sleep(1)
