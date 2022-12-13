@@ -16,6 +16,13 @@ class Application:
     def destroy(self):
         self.driver.quit()
 
+    def is_valid(self): #блок с перехватом исключения
+        try:
+            self.driver.current_url
+            return True
+        except:
+            return False
+
     # открытие боковой панели с данными пользователя
     def open_sidebar(self):
         self.driver.execute_script("window.scrollTo(0,0)")
