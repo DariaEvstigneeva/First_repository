@@ -51,3 +51,51 @@ b=Point(3, 4)
 print (a.distance2(b))
 print (a==b)
 print (a==a)
+
+
+# тест else if
+from math import sqrt
+
+def solve(a, b, c):
+    d = b*b - 4*a*c
+    if d<0:
+        print ("Нет решений")
+    else:
+        if d==0:
+            x= -b / (2*a)
+            print ("Одно рещение " + str(x))
+        else:
+            x1 = (-b + sqrt(d)) / (2*a)
+            x2 = (-b - sqrt(d)) / (2 * a)
+            print("Два решения " + str(x1) + " и " + str(x2))
+
+
+
+solve(1, 2, 1)
+solve(1, 5, 6)
+solve(1, 1, 1)
+
+
+# тест elif
+from math import sqrt
+
+def solve(a, b, c):
+    d = b*b - 4*a*c
+    if d<0:
+        print ("Нет решений")
+    elif d==0:  # условие elif может повторятся многое колво раз
+        x= -b / (2*a)
+        print ("Одно рещение " + str(x))
+    elif d>0:
+        x1 = (-b + sqrt(d)) / (2*a)
+        x2 = (-b - sqrt(d)) / (2 * a)
+        print("Два решения " + str(x1) + " и " + str(x2))
+    else:  # условие всегда должно кончаться else
+        print("Ошибка")
+
+
+
+
+solve(1, 2, 1)
+solve(1, 5, 6)
+solve(1, 1, 1)
