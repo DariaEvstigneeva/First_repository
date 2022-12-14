@@ -31,6 +31,7 @@ class Work_with_audiences:
         time.sleep(1)
         self.app.driver.find_element(By.CSS_SELECTOR, ".MuiButton-containedError").click()
 
+
     # копирование последней ЦА
     def copy_last_audience(self):
         self.app.default_page()
@@ -73,6 +74,22 @@ class Work_with_audiences:
             self.app.driver.find_element(By.ID, field_id).send_keys(text)
 
 
+    # получение списка ЦА
+    def get_audience_list(self):
+        audience_list = []
+        for element in self.app.driver.find_elements(By.CSS_SELECTOR, ".Mui TableCell-alignLeft"):
+            text = element.text
+            audience_list.append(text)
+        return audience_list
+    # def __repr__(self):
+    #    return "%s:%s" % (self.name_audience)
+    # def __eq__(self, other):
+    #    return self.name == other.name
+
     # количество элементов на странице - не работает
-    def count(self):
-        return len(self.app.driver.find_element(By.ID, "name"))
+    # def count(self):
+    #     return len(self.app.driver.find_element(By.ID, "name"))
+
+    # количество элементов на странице - не понятный
+    # def count(self):
+    #    return self.app.driver.find_elements(By.CSS_SELECTOR, "div.styles__tags-wrapper__273zE")
