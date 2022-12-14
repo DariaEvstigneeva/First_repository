@@ -81,6 +81,7 @@ class Work_with_audiences:
             text = element.text
             audience_list.append(text)
         return audience_list
+
     # def __repr__(self):
     #    return "%s:%s" % (self.name_audience)
     # def __eq__(self, other):
