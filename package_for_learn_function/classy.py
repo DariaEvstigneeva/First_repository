@@ -20,4 +20,11 @@ class Point:
 
     # сортировка по координате y (именно lt пользуется питон, когда выполняет сортировку
     def __lt__(self, other):
-        return self.y > other.y
+        return self.y < other.y
+
+    # вывод на консоль объекты типа
+    def __repr__(self):
+        # return "Point(" + str(self.x) + ", " + str(self.y) + ")" - по дефолту
+        return "Point(%s, %s)" % (self.x, self.y) # с ипользованием кортежа (self.x, self.y), для передачи значений в функцию форматирования "Point(%s, %s)"
+        # объект, стоящий справа от %, встраивается в строку слева от него
+

@@ -102,7 +102,32 @@ def solve(a, b, c):
 
 
 
-
 solve(1, 2, 1)
 solve(1, 5, 6)
 solve(1, 1, 1)
+
+
+i1 = [Point (2, 1), Point(0,0), Point(1,2)]
+
+i2 = sorted(i1)
+print(i1)
+print(i2)
+
+
+i1 = [Point (2, 1), Point(0,0), Point(1,2)]
+
+def x(p): # ф-ция, которая в качестве параметра принимает объект типа поинт и возвращает координату х
+    return p.x
+
+i2 = sorted(i1, key=x) # при вызове ф-ции сортед, нужно указать доп.параметр
+
+print(i1)
+print(i2)
+
+def y(p):
+    return p.y
+
+i2 = sorted(i1, key=y) # при вызове ф-ции сортед, нужно указать доп.параметр
+
+print(i1)
+print(i2)
