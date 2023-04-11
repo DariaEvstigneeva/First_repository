@@ -8,7 +8,7 @@ token = "eyJ2ZXIiOjEsInR5cCI6IkpXVCIsInNidCI6ImFjY2VzcyIsImFsZyI6IlJTMjU2In0.eyJ
 
 # успешное создание ца
 body = {
-    "name": "МСЭ ЧА4",
+    "name": "МСЭ ЧА",
     "category": "PHYSICAL"
 }
 
@@ -24,7 +24,8 @@ print("")
 
 # создание шаблона недоступно
 body = {
-    "name": "МСЭ ЧА2"
+    "name": "МСЭ ЧА",
+    "body": "МСЭ"
 }
 
 response = requests.post(
