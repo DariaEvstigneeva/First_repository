@@ -131,3 +131,68 @@ i2 = sorted(i1, key=y) # при вызове ф-ции сортед, нужно 
 
 print(i1)
 print(i2)
+
+i1 = [Point (2, 1), Point(0,0), Point(1,2)]
+
+i2 = sorted(i1, key=lambda p: p.y) # конструкция лямбда определеяет анонимную функцию, где p входной параметр, в p.y результат
+
+print(i1)
+print(i2)
+
+i1 = [Point (3, 1), Point(0,3), Point(1,2)]
+
+i2 = sorted(i1, key=lambda p: p.distance2(Point (0,0))) # конструкция лямбда определеяет анонимную функцию, где p входной параметр, в p.y результат
+
+print(i1)
+print(i2)
+
+# 4 занятие, видео 17 - конструкция for для циклов
+
+d=[]
+
+for i in range (-5, 6):
+    d.append(Point(i, i*i))
+
+print (d)
+
+d=[]
+
+for i in range (-5, 6):
+    d.append(Point(i, i*i))
+
+for el in d: # чтобы элемент списка печатался на отдельной строке
+    print (el)
+
+
+d=[]
+
+for i in range (-5, 6):
+    d.append(Point(i, i*i))
+
+for el in d: # поменяем координату y на противоположную (т.е разверем параболу вверх ногами)
+    el.y = -el.y
+
+print (d) # исходный список разрушается, т.е меняются элмеметы которые в нем хранились
+
+# чтобы не разрушался старый список
+
+d=[]
+
+for i in range (-5, 6):
+    d.append(Point(i, i*i))
+
+d2=[]
+
+for el in d:
+     d2.append(Point(el.x, -el.y))
+
+print (d)
+print (d2)
+
+# укороченная запись, которая позволяет избавиться от циклов for -  list comrehension
+d=[Point(i, i*i) for i in range (-5, 6)]
+
+d2=[Point(el.x, -el.y) for el in d]
+
+print (d)
+print (d2)
