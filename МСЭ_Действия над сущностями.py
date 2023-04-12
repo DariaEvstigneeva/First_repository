@@ -2,22 +2,25 @@ import requests
 from pprint import pprint
 
 HOST = "armcrm-dev.test.gosuslugi.ru"
-URL_audiences_id = "https://{HOST}/api/audiences/2131/"
-URL_audiences_copy = "https://{HOST}/api/audiences/2131/clone/"
+ID_audience = "2131"
+audiences_updated_at = "2023-04-10T10:54:30.656413+03:00"
 URL_audiences = "https://{HOST}/api/audiences/"
-URL_audiences_update_status = "https://{HOST}/api/audiences/2131/update-status/"
-URL_audiences_updated_at = "2023-04-10T10:54:30.656413+03:00"
+URL_audiences_id = "https://{HOST}/api/audiences/{ID_audience}/"
+URL_audiences_copy = "https://{HOST}/api/audiences/{ID_audience}/clone/"
+URL_audiences_update_status = "https://{HOST}/api/audiences/{ID_audience}/update-status/"
 
-URL_templates_id = "https://{HOST}/api/templates/email/376/"
-URL_templates_copy = "https://{HOST}/api/templates/email/376/clone/"
+ID_template = "377"
 URL_templates = "https://{HOST}/api/templates/"
-URL_templates_disable = "https://{HOST}/api/templates/email/377/disable/"
+URL_templates_id = "https://{HOST}/api/templates/email/{ID_template}/"
+URL_templates_copy = "https://{HOST}/api/templates/email/{ID_template}/clone/"
+URL_templates_disable = "https://{HOST}/api/templates/email/{ID_template}/disable/"
+URL_templates_deactivate = "https://{HOST}/api/templates/email/{ID_template}/deactivate/"
 
 token = "eyJ2ZXIiOjEsInR5cCI6IkpXVCIsInNidCI6ImFjY2VzcyIsImFsZyI6IlJTMjU2In0.eyJuYmYiOjE2ODEyMjQ2ODgsInNjb3BlIjoiaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL29yZ19lbXBzP29yZ19vaWQ9MTAwMDMwMDY0OCZtb2RlPXcgaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL3Vzcl9pbmY_bW9kZT13Jm9pZD0yMDc5NTUyOTY0IGh0dHA6XC9cL2VzaWEuZ29zdXNsdWdpLnJ1XC9vcmdfaW5mP29yZ19vaWQ9MTAwMDMwMDY0OCZtb2RlPXcgaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL29yZ19wcm9maWxlP21vZGU9dyZvcmdfb2lkPTEwMDAzMDA2NDggaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL29yZ192aGxzP29yZ19vaWQ9MTAwMDMwMDY0OCZtb2RlPXcgaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL29yZ19pbnZ0cz9vcmdfb2lkPTEwMDAzMDA2NDgmbW9kZT13IGh0dHA6XC9cL2VzaWEuZ29zdXNsdWdpLnJ1XC9vcmdfY3R0cz9vcmdfb2lkPTEwMDAzMDA2NDgmbW9kZT13IiwiaXNzIjoiaHR0cDpcL1wvZXNpYS1kZW1vLnRlc3QuZ29zdXNsdWdpLnJ1XC8iLCJ1cm46ZXNpYTpzaWQiOiI5Y2Q4YTRkMy1mZjc2LTNlMWMtMDVhYi05ODFkODY0YmNhNmYiLCJ1cm46ZXNpYTpzYmpfaWQiOjIwNzk1NTI5NjQsImV4cCI6MTY4MTIyODI4OCwiaWF0IjoxNjgxMjI0Njg4LCJjbGllbnRfaWQiOiJQR1UifQ.kFI3Xrx0u6fSxOz1BMDy5LkEbr5uU2S8pUmbE8SH86RJJbld9DqpFURXdQHntIBAtuN215dDqRqUkfoZTUClcNRiqZ3a1TwWbOchST01MwssV7KSAQfOtVuXTKbco6nWw8lVgQeoaSgyRVRLy3giyFYN4-Qx5lDJGrH1I3847ctNsB5pIFN1eACaayN_4xhFza3vO0iriLV7vbzfYsStsmGFDbu6temk9vLOJyYd8HrK5Lad9VIyrs2994JecNS5g3SkUAaLNebaHotBPHr2OaH82dlGl3VPPQ7hwgq1QtsL2W0UgyE2yMXf6SoloB34W33e0NwQGlS7fBLS21u7AQ"
 
 # успешное получение ца
 response = requests.get(
-    URL_audiences_id.format(HOST=HOST),
+    URL_audiences_id.format(HOST=HOST, ID_audience=ID_audience),
     headers={"Authorization": f"Bearer {token}"},
 )
 pprint(response.json())
@@ -29,7 +32,7 @@ body = {
 }
 
 response = requests.post(
-    URL_audiences_copy.format(HOST=HOST),
+    URL_audiences_copy.format(HOST=HOST, ID_audience=ID_audience),
     headers={"Authorization": f"Bearer {token}"},
     data=body,
 )
@@ -53,7 +56,7 @@ body = {
 }
 
 response = requests.put(
-    URL_audiences_id.format(HOST=HOST),
+    URL_audiences_id.format(HOST=HOST, ID_audience=ID_audience),
     headers={"Authorization": f"Bearer {token}"},
     data=body,
 )
@@ -64,11 +67,11 @@ print("")
 # успешный перевод ца в статус черновик
 body = {
     "status": "DRAFT",
-    "updated_at": URL_audiences_updated_at
+    "updated_at": audiences_updated_at
 }
 
 response = requests.patch(
-    URL_audiences_update_status.format(HOST=HOST),
+    URL_audiences_update_status.format(HOST=HOST, ID_audience=ID_audience),
     headers={"Authorization": f"Bearer {token}"},
     data=body,
 )
@@ -78,7 +81,7 @@ print("")
 
 # успешное удаление ца
 response = requests.delete(
-    URL_audiences_id.format(HOST=HOST),
+    URL_audiences_id.format(HOST=HOST, ID_audience=ID_audience),
     headers={"Authorization": f"Bearer {token}"},
 )
 pprint(response.json())
@@ -88,11 +91,11 @@ print("")
 # успешный перевод ца в статус удалена
 body = {
     "status": "DELETED",
-    "updated_at": URL_audiences_updated_at
+    "updated_at": audiences_updated_at
 }
 
 response = requests.patch(
-    URL_audiences_update_status.format(HOST=HOST),
+    URL_audiences_update_status.format(HOST=HOST, ID_audience=ID_audience),
     headers={"Authorization": f"Bearer {token}"},
     data=body,
 )
@@ -103,7 +106,7 @@ print("")
 
 # успешное получение шаблона
 response = requests.get(
-    URL_templates_id.format(HOST=HOST),
+    URL_templates_id.format(HOST=HOST, ID_template=ID_template),
     headers={"Authorization": f"Bearer {token}"},
 )
 pprint(response.json())
@@ -115,7 +118,7 @@ body = {
 }
 
 response = requests.post(
-    URL_templates_copy.format(HOST=HOST),
+    URL_templates_copy.format(HOST=HOST, ID_template=ID_template),
     headers={"Authorization": f"Bearer {token}"},
     data=body,
 )
@@ -139,15 +142,26 @@ body = {
 }
 
 response = requests.put(
-    URL_templates_id.format(HOST=HOST),
+    URL_templates_id.format(HOST=HOST, ID_template=ID_template),
     headers={"Authorization": f"Bearer {token}"},
     data=body,
 )
 pprint(response.json())
 
+# перевод шаблона в статус черновик недоступен
+body = {
+}
+
+response = requests.put(
+    URL_templates_deactivate.format(HOST=HOST,ID_template=ID_template),
+    headers={"Authorization": f"Bearer {token}"},
+    data=body,
+)
+pprint(response)
+
 # удаление шаблона недоступно
 response = requests.delete(
-    URL_templates_id.format(HOST=HOST),
+    URL_templates_id.format(HOST=HOST, ID_template=ID_template),
     headers={"Authorization": f"Bearer {token}"},
 )
 pprint(response.json())
@@ -159,7 +173,7 @@ body = {
 }
 
 response = requests.put(
-    URL_templates_disable.format(HOST=HOST),
+    URL_templates_disable.format(HOST=HOST, ID_template=ID_template),
     headers={"Authorization": f"Bearer {token}"},
     data=body,
 )
