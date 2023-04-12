@@ -24,7 +24,7 @@ pprint(response.json())
 
 print("")
 
-# успешное копирование ца
+# копирование ца недоступно
 body = {
 }
 
@@ -47,7 +47,7 @@ pprint(response.json())
 
 print("")
 
-# успешное редактирование ца
+# редактирование ца недоступно
 body = {
     "description": "тест редактирования",
 }
@@ -59,7 +59,7 @@ response = requests.put(
 )
 pprint(response.json())
 
-# успешное удаление ца
+# удаление ца недоступно
 response = requests.delete(
     URL_audiences_id.format(HOST=HOST),
     headers={"Authorization": f"Bearer {token}"},
@@ -68,7 +68,7 @@ pprint(response.json())
 
 print("")
 
-# успешный перевод ца в статус удалена
+# перевод ца в статус удалена недоступно
 body = {
     "status": "DELETED",
     "updated_at": URL_audiences_updated_at
@@ -128,7 +128,7 @@ response = requests.put(
 )
 pprint(response.json())
 
-# успешное удаление шаблона
+# успешное удаление шаблона (только если автор, исключение - глобальный доступ)
 response = requests.delete(
     URL_templates_id.format(HOST=HOST),
     headers={"Authorization": f"Bearer {token}"},
@@ -137,7 +137,7 @@ pprint(response.json())
 
 print("")
 
-# успешный перевод шаблона в статус удален
+# успешный перевод шаблона в статус удален (только если автор, для глобального доступа недоступно)
 body = {
 }
 
