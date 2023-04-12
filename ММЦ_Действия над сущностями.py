@@ -42,7 +42,7 @@ pprint(response.json())
 
 print("")
 
-# успешное редактирование
+# успешное редактирование ца
 body = {
     "description": "тест редактирования",
 }
@@ -54,7 +54,7 @@ response = requests.put(
 )
 pprint(response.json())
 
-# успешное удаление
+# успешное удаление ца
 response = requests.delete(
     URL_audiences_id.format(HOST=HOST),
     headers={"Authorization": f"Bearer {token}"},
@@ -96,7 +96,7 @@ pprint(response.json())
 
 print("")
 
-# успешное редактирование
+# успешное редактирование шаблона
 body = {
     "description": "тест редактирования",
 }
@@ -108,7 +108,7 @@ response = requests.put(
 )
 pprint(response.json())
 
-# успешное удаление
+# успешное удаление шаблона
 response = requests.delete(
     URL_templates_id.format(HOST=HOST),
     headers={"Authorization": f"Bearer {token}"},
