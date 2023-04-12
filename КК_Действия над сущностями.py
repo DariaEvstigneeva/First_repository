@@ -59,6 +59,23 @@ response = requests.put(
 )
 pprint(response.json())
 
+print("")
+
+# перевод ца в статус черновик недоступно
+body = {
+    "status": "DRAFT",
+    "updated_at": URL_audiences_updated_at
+}
+
+response = requests.patch(
+    URL_audiences_update_status.format(HOST=HOST),
+    headers={"Authorization": f"Bearer {token}"},
+    data=body,
+)
+pprint(response.json())
+
+print("")
+
 # удаление ца недоступно
 response = requests.delete(
     URL_audiences_id.format(HOST=HOST),
