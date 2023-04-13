@@ -1,20 +1,150 @@
 import requests
 from pprint import pprint
+import json
 
 HOST = "armcrm-dev.test.gosuslugi.ru"
-ID_template = "377"
-URL_templates_deactivate = "https://{HOST}/api/templates/email/{ID_template}/deactivate/"
+ID_audience = "2135"
 
-token = "eyJ2ZXIiOjEsInR5cCI6IkpXVCIsInNidCI6ImFjY2VzcyIsImFsZyI6IlJTMjU2In0.eyJuYmYiOjE2ODEzMDgzNDEsInNjb3BlIjoiaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL29yZ19lbXBzP29yZ19vaWQ9MTAwMDMwMDY0OCZtb2RlPXcgaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL29yZ19pbmY_b3JnX29pZD0xMDAwMzAwNjQ4Jm1vZGU9dyBodHRwOlwvXC9lc2lhLmdvc3VzbHVnaS5ydVwvb3JnX3ZobHM_b3JnX29pZD0xMDAwMzAwNjQ4Jm1vZGU9dyBodHRwOlwvXC9lc2lhLmdvc3VzbHVnaS5ydVwvb3JnX3Byb2ZpbGU_b3JnX29pZD0xMDAwMzAwNjQ4IGh0dHA6XC9cL2VzaWEuZ29zdXNsdWdpLnJ1XC9vcmdfaW52dHM_b3JnX29pZD0xMDAwMzAwNjQ4Jm1vZGU9dyBodHRwOlwvXC9lc2lhLmdvc3VzbHVnaS5ydVwvb3JnX2N0dHM_b3JnX29pZD0xMDAwMzAwNjQ4Jm1vZGU9dyBodHRwOlwvXC9lc2lhLmdvc3VzbHVnaS5ydVwvdXNyX2luZj9tb2RlPXcmb2lkPTEwMDAyOTkyODIiLCJpc3MiOiJodHRwOlwvXC9lc2lhLWRlbW8udGVzdC5nb3N1c2x1Z2kucnVcLyIsInVybjplc2lhOnNpZCI6IjA2YjY1ZTc1LTRiNGUtM2M3Yi1lYTJlLTBmMDJkZTY1MDNlZiIsInVybjplc2lhOnNial9pZCI6MTAwMDI5OTI4MiwiZXhwIjoxNjgxMzExOTQxLCJpYXQiOjE2ODEzMDgzNDEsImNsaWVudF9pZCI6IlBHVSJ9.QO1b4TwJupxYovqsqO3pzOMij91lxhe-qHqGGAG9WS868rzRAuudqLCcuXGUXqzUD5w7PVan_f0W9GCB_UBrTbc93_i2zIwLAiGvPGHhV-_7PHCWM5LrHbW1PcoAAYP7ldLQoEKOYcfDw1mV2Q8QAdnWE1YwgVfS4WyEm3UFGybl75TiclJjoxKGaEJWVIQ-kzjYO-YmwCh3oDiG6lTUr099QiJarbDkGsnJlHLlzLYygMDno8Qu-1sL0NjBASVqQ3VHRjg2Ih0I0Eid__9QpG5OuFnu33NbXhR79RwhDjTh9C72io38SKSkH-f6_ACPxVb01F2s7lteiR7Q60CEbA"
+ID_selection_rule = "3886"
+selection_rules_updated_at = "2023-04-13T18:22:52.969797+03:00"
+URL_selection_rules = "https://{HOST}/api/selection-rules/"
+URL_selection_rules_id = "https://{HOST}/api/selection-rules/{ID_selection_rule}/"
 
-# успешный перевод шаблона в статус черновик
-# перевод шаблона в статус черновик недоступен
+URL_audiences_test_query = "https://{HOST}/api/audiences/{ID_audience}/test-query/"
+URL_audiences_contacts_archives = "https://{HOST}/api/audience-contacts-archives/"
+
+token = "eyJ2ZXIiOjEsInR5cCI6IkpXVCIsInNidCI6ImFjY2VzcyIsImFsZyI6IlJTMjU2In0.eyJuYmYiOjE2ODEzOTYyMDcsInNjb3BlIjoiaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL29yZ19pbmY_b3JnX29pZD0yMDc5NTUxNzk1Jm1vZGU9dyBodHRwOlwvXC9lc2lhLmdvc3VzbHVnaS5ydVwvb3JnX2VtcHM_b3JnX29pZD0yMDc5NTUxNzk1Jm1vZGU9dyBodHRwOlwvXC9lc2lhLmdvc3VzbHVnaS5ydVwvb3JnX3Byb2ZpbGU_bW9kZT13Jm9yZ19vaWQ9MjA3OTU1MTc5NSBodHRwOlwvXC9lc2lhLmdvc3VzbHVnaS5ydVwvb3JnX2N0dHM_b3JnX29pZD0yMDc5NTUxNzk1Jm1vZGU9dyBodHRwOlwvXC9lc2lhLmdvc3VzbHVnaS5ydVwvb3JnX2ludnRzP29yZ19vaWQ9MjA3OTU1MTc5NSZtb2RlPXcgaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL29yZ192aGxzP29yZ19vaWQ9MjA3OTU1MTc5NSZtb2RlPXcgaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL3Vzcl9pbmY_bW9kZT13Jm9pZD0xMDAwMjk5MjgyIiwiaXNzIjoiaHR0cDpcL1wvZXNpYS1kZW1vLnRlc3QuZ29zdXNsdWdpLnJ1XC8iLCJ1cm46ZXNpYTpzaWQiOiI5MDAyYjYxNC1jZDUwLWMzNzItM2JhNy1hMDhhZDBmOGU4ZmQiLCJ1cm46ZXNpYTpzYmpfaWQiOjEwMDAyOTkyODIsImV4cCI6MTY4MTM5OTgwNywiaWF0IjoxNjgxMzk2MjA3LCJjbGllbnRfaWQiOiJQR1UifQ.TzNJn0lg9Bp7bsvFtNyQ3Lj8qfKUh3ddGBD6u7Ic3RKJtc-uUypileoEmNo_Uy1SyKKzBzQaKhmZ6eSkYxAB14Gww1nDisRXxOfxDk4mygCDG3sQLkVKreSIOtoW9LnqNofXWSNT6YDNi1_TrxZsRZKb62DZb_4By4-yy0LO-G-GEAJU73amEVhfmiiTSnI8ESzL4e53eoNkkL3EhSxQWhYFfCVYc9A8qDv-8NYq3texeTMihuk-wlzmZBPUlM1xvnXweg1ZyYtqOZkRDU5pDXL0gznFpWjbgTBkIEpDpR_ila72FgQv3O1M-mIqtBzlnbDXsrUznPw_oC1Kqsjqqg"
+
+
+
+# успешный поиск записей без примера найденных записей
+# успешный поиск записей с примером найденных записей
+# поиск записей недоступен
 body = {
 }
 
-response = requests.put(
-    URL_templates_deactivate.format(HOST=HOST,ID_template=ID_template),
+response = requests.post(
+    URL_audiences_test_query.format(HOST=HOST,ID_audience=ID_audience),
     headers={"Authorization": f"Bearer {token}"},
     data=body,
 )
-pprint(response)
+pprint(response.json())
+
+print("")
+print("")
+print("")
+
+# успешная выгрузка
+# выгрузка недоступна
+body = {"audience_id": {ID_audience},
+        "query_params": [{"limit": 1, "random_ordering": True}]
+}
+
+response = requests.post(
+    URL_audiences_contacts_archives.format(HOST=HOST),
+    headers={"Authorization": f"Bearer {token}"},
+    data=body,
+)
+pprint(response.json())
+
+print("")
+print("")
+print("")
+
+# успешное получение выгрузок
+# получение выгрузок недоступно
+response = requests.get(
+    URL_audiences_contacts_archives.format(HOST=HOST),
+    headers={"Authorization": f"Bearer {token}"},
+)
+pprint(response.json())
+
+
+print("")
+print("")
+print("")
+
+# успешное получение правил
+# получение правил недоступно
+response = requests.get(
+    URL_selection_rules.format(HOST=HOST),
+    headers={"Authorization": f"Bearer {token}"},
+)
+pprint(response.json())
+
+print("")
+print("")
+print("")
+
+# успешное получение правила
+# получение правила недоступно
+response = requests.get(
+    URL_selection_rules_id.format(HOST=HOST, ID_selection_rule=ID_selection_rule),
+    headers={"Authorization": f"Bearer {token}"},
+)
+pprint(response.json())
+
+print("")
+
+# успешное создание правила
+# создание правила недоступно
+body = {
+    "name": "ML",
+    "status": "ACTIVE",
+    "audience": {ID_audience},
+    "mailing_lists": [1217]
+}
+
+response = requests.post(
+    URL_selection_rules.format(HOST=HOST),
+    headers={"Authorization": f"Bearer {token}"},
+    data=body,
+)
+pprint(response.json())
+
+print("")
+print("")
+print("")
+
+# успешное редактирование правила
+# редактирование правила недоступно
+body = {
+    "name": "ML0",
+    "status": "ACTIVE",
+    "audience": {ID_audience},
+    "mailing_lists": [1217],
+    "updated_at": selection_rules_updated_at
+}
+
+response = requests.put(
+    URL_selection_rules_id.format(HOST=HOST, ID_selection_rule=ID_selection_rule),
+    headers={"Authorization": f"Bearer {token}"},
+    data=body,
+)
+pprint(response.json())
+
+# успешная деактивация правила
+# деактивация правила недоступна
+body = {
+    "status": "DISABLED",
+    "updated_at": selection_rules_updated_at
+}
+
+response = requests.patch(
+    URL_selection_rules_id.format(HOST=HOST, ID_selection_rule=ID_selection_rule),
+    headers={"Authorization": f"Bearer {token}"},
+    data=body,
+)
+pprint(response.json())
+
+print("")
+
+# успешное удаление правила
+# удаление правила недоступно
+response = requests.delete(
+    URL_selection_rules_id.format(HOST=HOST, ID_selection_rule=ID_selection_rule),
+    headers={"Authorization": f"Bearer {token}"},
+)
+pprint(response.json())
+
+print("")
